@@ -8,12 +8,13 @@
         <div class="main">
             <input type="checkbox" class="toggle-all" v-model="allDone">
             <ul class="todo-list">
-                <li class="todo" v-for="todo in filteredTodos" :class="{completed: todo.completed}">
+                <li class="todo" v-for="todo in filteredTodos" :class="{completed: todo.completed, editing: todo === editing}">
                     <div class="view">
                         <input type="checkbox" v-model="todo.completed" class="toggle">
-                        <label>{{ todo.name }}</label>
+                        <label @dblclick="editTodo(todo)">{{ todo.name }}</label>
                         <button class="destroy" @click.prevent="deleteTodo(todo)"></button>
                     </div>
+                    <input type="text" class="edit" v-model="todo.name">
                 </li>
             </ul>
         </div>
@@ -39,7 +40,8 @@
                     completed: false
                 }],
                 newTodo: '',
-                filter: 'all'
+                filter: 'all',
+                editing: null
             }
         },
         methods: {
@@ -55,6 +57,9 @@
             },
             deleteCompleted () {
                 this.todos = this.todos.filter(todo => !todo.completed)
+            },
+            editTodo (todo) {
+                this.editing = todo
             }
         },
         computed : {
