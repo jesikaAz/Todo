@@ -18,7 +18,7 @@
             </ul>
         </div>
 
-        <footer class="footer">
+        <footer class="footer" v-show = "todos.length > 0">
             <span class="todo-count"><strong>{{remaining}}</strong> Taches à faire </span>
             <ul class="filters">
                 <li><a href="#" class=":{selected: filter === 'all'}" @click.prevent = "filter = 'all'" >Toutes</a></li>
