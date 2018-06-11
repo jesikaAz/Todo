@@ -7,8 +7,9 @@
 
         <div class="main">
             <ul class="todo-list">
-                <li class="todo" v-for="todo in todos">
+                <li class="todo" v-for="todo in todos" :class="{completed:todo.completed}">
                     <div class="view">
+                        <input type="checkbox" v-model="todo.completed" class="toggle">
                         <label>{{ todo.name }}</label>
                     </div>
                 </li>
