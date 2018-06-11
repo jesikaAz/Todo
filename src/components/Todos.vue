@@ -25,6 +25,7 @@
                 <li><a href="#" class=":{selected: filter === 'todo'}" @click.prevent = "filter = 'todo'" >A faire</a></li>
                 <li><a href="#" class=":{selected: filter === 'done'}" @click.prevent = "filter = 'done'" >Faites</a></li>
             </ul>
+            <button class="clear-completed" v-show="completed" @click.prevent ="deleteCompleted">Supprimer les taches finies </button>
         </footer>
     </section>
 </template>
@@ -51,6 +52,9 @@
             },
             deleteTodo (todo) {
                 this.todos = this.todos.filter(i => i !== todo)
+            },
+            deleteCompleted () {
+                this.todos = this.todos.filter(todo => !todo.completed)
             }
         },
         computed : {
@@ -65,10 +69,11 @@
                     }
                 },
 
-            remaining () {
-               return this.todos.filter(todo => !todo.completed).length
-            },
-            hasTodos () {
+            remaining () { return this.todos.filter(todo => !todo.completed).length },
+
+            completed () { return this.todos.filter(todo => !todo.completed).length },
+
+            hasTodos () { 
                 return this.todos.length > 0
             },
 
